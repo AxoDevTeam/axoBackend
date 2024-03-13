@@ -16,5 +16,6 @@ func main() {
 	http.HandleFunc("/gpt", gpt)
 	http.HandleFunc("/onlineImage", onlineImage)
 	http.HandleFunc("/status", status)
+	http.HandleFunc("/rcon", listenrcon)
 	log.Fatal(http.ListenAndServe(":1314", nil))
 }
