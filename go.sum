@@ -1,3 +1,5 @@
+github.com/mcstatus-io/mcutil/v3 v3.3.0 h1:FnI0hzmCtYGOlYARcdVTqNS+5iYqyo/t/U6YDpBmc8c=
+github.com/mcstatus-io/mcutil/v3 v3.3.0/go.mod h1:f1hgiUD3WoNmeZdN1AXYASSEO7yPxVEsLCGXnPkK6p4=
 golang.org/x/image v0.15.0 h1:kOELfmgrmJlw4Cdb7g/QGuB3CvDrXbqEIww/pNtNBm8=
 golang.org/x/image v0.15.0/go.mod h1:HUYqC05R2ZcZ3ejNQsIHQDQiwWM4JBqmm6MKANTp4LE=
 golang.org/x/text v0.14.0 h1:ScX5w1eTa3QqT8oi6+ziP7dTV1S2+ALU0bI+0zXKWiQ=
