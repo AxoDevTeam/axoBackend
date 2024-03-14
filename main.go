@@ -17,5 +17,6 @@ func main() {
 	http.HandleFunc("/onlineImage", onlineImage)
 	http.HandleFunc("/status", status)
 	http.HandleFunc("/rcon", listenrcon)
+	http.HandleFunc("/versions", versions)
 	log.Fatal(http.ListenAndServe(":1314", nil))
 }
