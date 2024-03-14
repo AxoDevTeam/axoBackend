@@ -9,16 +9,15 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"strconv"
 
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
 	"golang.org/x/image/math/fixed"
 )
 
-func onlineImage(w http.ResponseWriter, r *http.Request) {
+func prompt(w http.ResponseWriter, r *http.Request) {
 
-	resp, err := http.Get("http://127.0.0.1:8000/status")
+	resp, err := http.Get("http://127.0.0.1:1314/status")
 	if err != nil {
 		http.Error(w, "调用在线人数API失败", http.StatusInternalServerError)
 		return
@@ -37,9 +36,9 @@ func onlineImage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ol_count := 0
-	if player, ok := ol_data["players"].(map[string]interface{}); ok {
-		if temp, ok := player["online"].(int); ok {
+	var ol_count string
+	if player, ok := ol_data["data"].(map[string]interface{}); ok {
+		if temp, ok := player["numplayers"].(string); ok {
 			ol_count = temp
 		}
 	}
@@ -92,7 +91,7 @@ func onlineImage(w http.ResponseWriter, r *http.Request) {
 		Dot:  fixed.Point26_6{X: fixed.Int26_6(1000), Y: fixed.Int26_6(2000)},
 	}
 
-	d.DrawString("当前在线 " + strconv.Itoa(ol_count) + " 人")
+	d.DrawString("当前在线 " + ol_count + " 人")
 	d.Dot = fixed.Point26_6{X: fixed.Int26_6(1000), Y: fixed.Int26_6(3500)}
 	versions, ok := config["ver"].(map[string]interface{})
 	if !ok {

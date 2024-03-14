@@ -11,7 +11,7 @@ import (
 
 func gpt(w http.ResponseWriter, r *http.Request) {
 
-	//Get query string params
+	//获取查询字符串参数
 	params := r.URL.Query()
 	text := params.Get("text")
 	if text == "" {
@@ -31,7 +31,7 @@ func gpt(w http.ResponseWriter, r *http.Request) {
 		temperature = temp
 	}
 
-	//Make request to GPT
+	//制作向GPT发送的请求
 	requestBody, err := json.Marshal(map[string]interface{}{
 		"model": model,
 		"messages": []map[string]string{
@@ -57,7 +57,7 @@ func gpt(w http.ResponseWriter, r *http.Request) {
 	}
 	req.Header.Set("Authorization", "Bearer "+gptkey)
 
-	//Send request to GPT and user
+	//向GPT发送请求之后向用户发送请求
 	resp, err := (&http.Client{}).Do(req)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
