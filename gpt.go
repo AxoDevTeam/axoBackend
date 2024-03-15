@@ -10,7 +10,6 @@ import (
 )
 
 func gpt(w http.ResponseWriter, r *http.Request) {
-
 	//获取查询字符串参数
 	params := r.URL.Query()
 	text := params.Get("text")
