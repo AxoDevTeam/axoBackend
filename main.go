@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"log"
 	"net/http"
 	"os"
@@ -8,6 +9,7 @@ import (
 )
 
 var config map[string]interface{}
+var db *sql.DB
 
 func main() {
 	exePath, err := os.Executable()
@@ -19,6 +21,9 @@ func main() {
 	}
 	if err := readConf(); err != nil {
 		log.Fatal("配置文件读取失败：", err)
+	}
+	if err := readDB(); err != nil {
+		log.Fatal("Read DB failed: ", err)
 	}
 	http.HandleFunc("/gpt", gpt)
 	http.HandleFunc("/prompt", prompt)

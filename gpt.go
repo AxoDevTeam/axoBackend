@@ -39,14 +39,14 @@ func gpt(w http.ResponseWriter, r *http.Request) {
 		"temperature": temperature,
 	})
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, "request failed", http.StatusInternalServerError)
 		return
 	}
 	gpt_url := "https://api.openai.com/v1/chat/completions"
 	gpt_request := strings.NewReader(string(requestBody))
 	req, err := http.NewRequest("POST", gpt_url, gpt_request)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, "post make fail", http.StatusInternalServerError)
 		return
 	}
 	req.Header.Set("Content-Type", "application/json")
