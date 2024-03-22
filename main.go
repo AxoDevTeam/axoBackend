@@ -19,16 +19,16 @@ func main() {
 	if os.Chdir(filepath.Dir(exePath)) != nil {
 		log.Fatal("更改基准目录失败：", err)
 	}
-	if err := readConf(); err != nil {
+	if readConf() != nil {
 		log.Fatal("配置文件读取失败：", err)
 	}
-	if err := readDB(); err != nil {
-		log.Fatal("Read DB failed: ", err)
+	if readDB() != nil {
+		log.Fatal("读取数据库失败：", err)
 	}
-	http.HandleFunc("/gpt", gpt)
-	http.HandleFunc("/prompt", prompt)
-	http.HandleFunc("/status", status)
-	http.HandleFunc("/rcon", listenrcon)
-	http.HandleFunc("/versions", versions)
+	http.Handle("/gpt", http.HandlerFunc(gpt))
+	http.Handle("/prompt", http.HandlerFunc(prompt))
+	http.Handle("/status", http.HandlerFunc(status))
+	http.Handle("/rcon", http.HandlerFunc(listenrcon))
+	http.Handle("/versions", http.HandlerFunc(versions))
 	log.Fatal(http.ListenAndServe(":1314", nil))
 }
