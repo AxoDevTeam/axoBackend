@@ -1,6 +1,8 @@
-package main
+package handler
 
-import "net/http"
+import (
+	"net/http"
+)
 
 func cookieWare(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

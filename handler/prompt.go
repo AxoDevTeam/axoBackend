@@ -1,4 +1,4 @@
-package main
+package handler
 
 import (
 	"encoding/json"
@@ -13,7 +13,11 @@ import (
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
 	"golang.org/x/image/math/fixed"
+
+	"github.com/AxoDevTeam/axoBackend/config"
 )
+
+var Prompt = http.HandlerFunc(prompt)
 
 func prompt(w http.ResponseWriter, r *http.Request) {
 
@@ -59,7 +63,7 @@ func prompt(w http.ResponseWriter, r *http.Request) {
 	bounds := img.Bounds()
 	newImg := image.NewRGBA(bounds)
 	draw.Draw(newImg, bounds, img, bounds.Min, draw.Src)
-	fonturi, ok := config["mcfont"].(string)
+	fonturi, ok := config.Conf["mcfont"].(string)
 	if !ok {
 		http.Error(w, "字体路径格式有误", http.StatusInternalServerError)
 		return
@@ -93,7 +97,7 @@ func prompt(w http.ResponseWriter, r *http.Request) {
 
 	d.DrawString("当前在线 " + ol_count + " 人")
 	d.Dot = fixed.Point26_6{X: fixed.Int26_6(1000), Y: fixed.Int26_6(3500)}
-	versions, ok := config["ver"].(map[string]interface{})
+	versions, ok := config.Conf["ver"].(map[string]interface{})
 	if !ok {
 		http.Error(w, "类型断言失败", http.StatusInternalServerError)
 		return

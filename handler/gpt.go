@@ -1,4 +1,4 @@
-package main
+package handler
 
 import (
 	"encoding/json"
@@ -7,7 +7,11 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/AxoDevTeam/axoBackend/config"
 )
+
+var Gpt = http.HandlerFunc(gpt)
 
 func gpt(w http.ResponseWriter, r *http.Request) {
 	//获取查询字符串参数
@@ -50,7 +54,7 @@ func gpt(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	req.Header.Set("Content-Type", "application/json")
-	gptkey, ok := config["gptkey"].(string)
+	gptkey, ok := config.Conf["gptkey"].(string)
 	if !ok {
 		log.Fatal("Gptkey is not a string.")
 	}

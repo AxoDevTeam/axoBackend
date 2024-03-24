@@ -1,4 +1,4 @@
-package main
+package handler
 
 import (
 	"context"
@@ -9,6 +9,8 @@ import (
 	"github.com/mcstatus-io/mcutil/v3"
 	"github.com/mcstatus-io/mcutil/v3/response"
 )
+
+var Status = http.HandlerFunc(status)
 
 func status(w http.ResponseWriter, r *http.Request) {
 	ctx, canc := context.WithTimeout(context.Background(), time.Second*5)

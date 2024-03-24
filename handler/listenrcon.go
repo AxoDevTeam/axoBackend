@@ -1,4 +1,4 @@
-package main
+package handler
 
 import (
 	"crypto/rand"
@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/AxoDevTeam/axoBackend/config"
 	"github.com/gorcon/rcon"
 )
 
@@ -14,6 +15,8 @@ const chalVolume = 100
 
 var challenges [chalVolume]string
 var chalIte = 0
+
+var Listenrcon = http.HandlerFunc(listenrcon)
 
 func listenrcon(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
@@ -57,7 +60,7 @@ func listenrcon(w http.ResponseWriter, r *http.Request) {
 
 		//验证哈希值是否正确
 		var RCONpwd string
-		if temp, ok := config["RCONpwd"].(string); ok {
+		if temp, ok := config.Conf["RCONpwd"].(string); ok {
 			RCONpwd = temp
 		}
 		hashBytes := sha256.Sum256([]byte(RCONpwd + chal))
